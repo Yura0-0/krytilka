@@ -28,6 +28,7 @@ vedomosti = os.listdir(path_krytilka)
 
 mas_brak_fon = []
 
+# тестовая хрень
 
 def key_exit():
     while True:
