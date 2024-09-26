@@ -43,90 +43,92 @@ def key_exit():
             sys.exit(0)
 
 
-# def create_mask(ved, im, name_id, pix, kadr, k):
-#     # ImageFile.LOAD_TRUNCATED_IMAGES = True
-#     try:
-#         ni = np.asarray(im)
-#     except OSError:
-#         mas_brak_fon.append(name_id)
-#         print(f"[** ERROR **] image file is truncated (0 bytes not processed):  {name_id}")
-#
-#     pix = int(pix)
-#
-#     r, g, b = im.getpixel((30, 30))
-#     # print("Red: {0}, Green: {1}, Blue: {2}".format(r, g, b))
-#     try:
-#         # зеленый r == 20 and g == 254 and b == 9:
-#         if any(map(lambda i: 235 <= i <= 255, (g,))) and any(map(lambda ii: 5 <= ii <= 40, (r,))):
-#             blues = ((ni[:, :, 0] >= 0) & (ni[:, :, 0] <= 70)) & \
-#                     ((ni[:, :, 1] >= 100) & (ni[:, :, 1] <= 255)) & \
-#                     ((ni[:, :, 2] >= 0) & (ni[:, :, 2] <= 36))
-#         # красный r == 255 and g == 0 and b == 255:
-#         elif any(map(lambda i: 0 <= i <= 20, (g,))) and any(map(lambda ii: 195 <= ii <= 255, (r,))):
-#             blues = ((ni[:, :, 0] >= 94) & (ni[:, :, 0] <= 255)) & \
-#                     ((ni[:, :, 1] >= 0) & (ni[:, :, 1] <= 51)) & \
-#                     ((ni[:, :, 2] >= 120) & (ni[:, :, 2] <= 255))
-#         else:
-#             mas_brak_fon.append(name_id)
-#             # print(Fore.YELLOW + f"[*** ERROR ***] Вед №_{ved},  c {name_id} проблема с фоном ")
-#
-#         # Image.fromarray((blues * 255).astype(np.uint8)).save(f'mask.png', quality=100)
-#
-#         img = Image.fromarray((blues * 255).astype(np.uint8))
-#
-#         # убираем пиксели
-#         # img = Image.open(f'mask.png')
-#         mask_im = ImageOps.invert(img)
-#         # a = np.asarray(mask_im)
-#         a = np.array(mask_im)
-#         a[a <= 119] = 0
-#         a[a >= 120] = 255
-#
-#         # горизонт
-#         s = np.roll(a, pix)
-#         a[a != s] = 0
-#         s = np.roll(a, -pix)
-#         a[a != s] = 0
-#
-#         # верт
-#         a = a.T
-#         s = np.roll(a, pix)
-#         a[a != s] = 0
-#         s = np.roll(a, -pix)
-#         a[a != s] = 0
-#         a = a.T
-#
-#         # # градиент
-#         # ss = a[-400:, 0:64]
-#         # if 255 in ss[:, 1]:
-#         #     aa = np.arange(0, 255, 4, dtype=np.uint8)
-#         #     np.copyto(ss, aa, where=ss == 255)
-#         #     print(a)
-#
-#         Image.fromarray((a).astype(np.uint8)).save(f'mask-pix_{name_id}_{kadr}_{k}.jpg', quality=100)
-#
-#         # убираем пятна с формы цвет
-#         img = cv2.imread(f'mask-pix_{name_id}_{kadr}_{k}.jpg', cv2.IMREAD_UNCHANGED)
-#         # with open(cv2.imread(f'mask-pix_{name_id}_{kadr}_{k}.jpg', cv2.IMREAD_UNCHANGED)) as img:
-#         pixel = img[30, 30]
-#         # print(pixel)
-#         if not pixel == 0:
-#             print(Fore.YELLOW + f"[*** ERROR ***] Вед №_{ved},  c {name_id} проблема с фоном (маска) ")
-#
-#             thresh = 100  # вычитаем из контура подмышки у солдат (cv2.RETR_TREE)
-#             ret, thresh_img = cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY)
-#
-#             # contours, hierarchy = cv2.findContours(thresh_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
-#             contours, hierarchy = cv2.findContours(thresh_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
-#
-#             cv2.drawContours(img, contours, -1, (255, 255, 255), -1)
-#
-#             cv2.imwrite(f'mask-pix_{name_id}_{kadr}_{k}.jpg', img)
-#
-#
-#     except UnboundLocalError:
-#         mas_brak_fon.append(name_id)
-#         print(Fore.YELLOW + f"[*** ERROR ***] Вед №_{ved},  c {name_id} проблема с фоном ")
+def create_mask(ved, im, name_id, pix, kadr, k):
+    # ImageFile.LOAD_TRUNCATED_IMAGES = True
+    try:
+        ni = np.asarray(im)
+    except OSError:
+        mas_brak_fon.append(name_id)
+        print(f"[** ERROR **] image file is truncated (0 bytes not processed):  {name_id}")
+
+    pix = int(pix)
+
+    r, g, b = im.getpixel((30, 30))
+    # print("Red: {0}, Green: {1}, Blue: {2}".format(r, g, b))
+    try:
+        # зеленый r == 20 and g == 254 and b == 9:
+        if any(map(lambda i: 235 <= i <= 255, (g,))) and any(map(lambda ii: 5 <= ii <= 40, (r,))):
+            blues = ((ni[:, :, 0] >= 0) & (ni[:, :, 0] <= 70)) & \
+                    ((ni[:, :, 1] >= 100) & (ni[:, :, 1] <= 255)) & \
+                    ((ni[:, :, 2] >= 0) & (ni[:, :, 2] <= 36))
+        # красный r == 255 and g == 0 and b == 255:
+        elif any(map(lambda i: 0 <= i <= 20, (g,))) and any(map(lambda ii: 195 <= ii <= 255, (r,))):
+            blues = ((ni[:, :, 0] >= 94) & (ni[:, :, 0] <= 255)) & \
+                    ((ni[:, :, 1] >= 0) & (ni[:, :, 1] <= 51)) & \
+                    ((ni[:, :, 2] >= 120) & (ni[:, :, 2] <= 255))
+        else:
+            mas_brak_fon.append(name_id)
+            # print(Fore.YELLOW + f"[*** ERROR ***] Вед №_{ved},  c {name_id} проблема с фоном ")
+
+        # Image.fromarray((blues * 255).astype(np.uint8)).save(f'mask.png', quality=100)
+
+        img = Image.fromarray((blues * 255).astype(np.uint8))
+
+        # убираем пиксели
+        # img = Image.open(f'mask.png')
+        mask_im = ImageOps.invert(img)
+        # a = np.asarray(mask_im)
+        a = np.array(mask_im)
+        a[a <= 119] = 0
+        a[a >= 120] = 255
+
+        # горизонт
+        s = np.roll(a, pix)
+        a[a != s] = 0
+        s = np.roll(a, -pix)
+        a[a != s] = 0
+
+        # верт
+        a = a.T
+        s = np.roll(a, pix)
+        a[a != s] = 0
+        s = np.roll(a, -pix)
+        a[a != s] = 0
+        a = a.T
+
+        # # градиент
+        # ss = a[-400:, 0:64]
+        # if 255 in ss[:, 1]:
+        #     aa = np.arange(0, 255, 4, dtype=np.uint8)
+        #     np.copyto(ss, aa, where=ss == 255)
+        #     print(a)
+
+        Image.fromarray((a).astype(np.uint8)).save(f'mask-pix_{name_id}_{kadr}_{k}.jpg', quality=100)
+
+        # убираем пятна с формы цвет
+        img = cv2.imread(f'mask-pix_{name_id}_{kadr}_{k}.jpg', cv2.IMREAD_UNCHANGED)
+        # with open(cv2.imread(f'mask-pix_{name_id}_{kadr}_{k}.jpg', cv2.IMREAD_UNCHANGED)) as img:
+        pixel = img[30, 30]
+        # print(pixel)
+        if not pixel == 0:
+            print(Fore.YELLOW + f"[*** ERROR ***] Вед №_{ved},  c {name_id} проблема с фоном (маска) ")
+
+            thresh = 100  # вычитаем из контура подмышки у солдат (cv2.RETR_TREE)
+            ret, thresh_img = cv2.threshold(img, thresh, 255, cv2.THRESH_BINARY)
+
+            # contours, hierarchy = cv2.findContours(thresh_img, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+            contours, hierarchy = cv2.findContours(thresh_img, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE)
+
+            cv2.drawContours(img, contours, -1, (255, 255, 255), -1)
+
+            cv2.imwrite(f'mask-pix_{name_id}_{kadr}_{k}.jpg', img)
+
+
+    except UnboundLocalError:
+        mas_brak_fon.append(name_id)
+        print(Fore.YELLOW + f"[*** ERROR ***] Вед №_{ved},  c {name_id} проблема с фоном ")
+
+
 #
 #
 # def v_pechat(pix):  # 1 6
@@ -1115,10 +1117,10 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
 
             papka_1 = os.path.join(path_krytilka, ved, "СКом", "01_К")
             papka_2 = os.path.join(path_krytilka, ved, "СКом", "01_Кадр_2_К")
-
+            papka_3 = os.path.join(path_krytilka, ved, "СКом", "01_Кадр_3_К")
             jpg1 = sorted(os.listdir(papka_1))
             jpg2 = os.listdir(papka_2)
-
+            jpg3 = os.listdir(papka_3)
 
             # проверка верстки
             rm = np.array(['Thumbs.db', '.DS_Store'])
@@ -1130,9 +1132,12 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
             idx = np.in1d(q2, rm)
             q2 = q2[~idx]
 
+            q3 = np.asarray(jpg3)
+            idx = np.in1d(q3, rm)
+            q3 = q3[~idx]
 
             try:
-                if (q1 != q2).any():
+                if (q1 != q2).any() or (q1 != q3).any():
                     init(autoreset=True)
                     print(Fore.RED + f'[**ERROR**] имена jpg в №_{ved} не совпадают:\n ')
                     continue
@@ -1149,20 +1154,41 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
 
                 path_jpg_1 = os.path.join(papka_1, jpg)
                 path_jpg_2 = os.path.join(papka_2, jpg)
-
+                path_jpg_3 = os.path.join(papka_3, jpg)
 
                 im1 = Image.open(path_jpg_1)
                 im2 = Image.open(path_jpg_2)
+                im3 = Image.open(path_jpg_3)
 
+                # create_mask
+                create_mask(ved, im1, name_id, pix, kadr='1', k='ptk')
+                create_mask(ved, im2, name_id, pix, kadr='2', k='ptk')
+
+                try:
+                    # вставка на фон
+                    mask_im1 = Image.open(f'mask-pix_{name_id}_1_ptk.jpg')
+                    mask_im2 = Image.open(f'mask-pix_{name_id}_2_ptk.jpg')
+                    mask_im1_blur = mask_im1.filter(ImageFilter.GaussianBlur(1))
+                    mask_im2_blur = mask_im2.filter(ImageFilter.GaussianBlur(1))
+                except FileNotFoundError:
+                    break
 
                 im_v_shablon = Image.open(r'241/ПТК_ППЛС/в печать 12 шаблон.jpg')
                 im_v_shablon_png = Image.open(r'241/ПТК_ППЛС/в печать 12 шаблон.png')
                 im_10x15_ = Image.open(r'241/ПТК_ППЛС/10x15.jpg')
-                vimpel_shablon = Image.open(r'241/ПТК_ППЛС/вымпел.png')
-                im_vimpel = Image.open(r"241\ПТК_ППЛС\Калининград под старину\вымпел_присяга.jpg")
+                im_ramka = Image.open('241/в печать 12/10x15 рамка.png')
+                im_big = Image.open('241/в печать 12/фон.jpg')
+                im_blue_fon = Image.open('241/ПТК_ППЛС/выпуск_синий_фондля.jpg')
+                im_foto_flag_2kadr = Image.open('241/ПТК_ППЛС/Флаг_2 кадр.jpg')
+
+                if name_id == '291':
+                    im_foto_flag = Image.open('241/ПТК_ППЛС/Андреевский Флаг.jpg')
+                else:
+                    im_foto_flag = Image.open('241/в печать 12/флаг.jpg')
+
 
                 if str(id_region) == '301':
-                    im_magnit = Image.open(r"241\ПТК_ППЛС\магниты присяга\301_знаменск.jpg")
+                    im_magnit = Image.open(r"241\ПТК_ППЛС\магниты выпуск\Магнит Знаменск для ВА-301.jpg")
                     im_magnit_png = Image.open(r"241\ПТК_ППЛС\магниты присяга\301_знаменск.png")
                 elif str(id_region) == '504':
                     im_magnit = Image.open(r"241\ПТК_ППЛС\магниты присяга\504_Княжево.jpg")
@@ -1174,7 +1200,7 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
                     im_magnit = Image.open(r"241\ПТК_ППЛС\магниты присяга\641_Саратов.jpg")
                     im_magnit_png = Image.open(r"241\ПТК_ППЛС\магниты присяга\641_Саратов.png")
                 elif str(id_region) == '761':
-                    im_magnit = Image.open(r"241\ПТК_ППЛС\магниты присяга\761_переславль.jpg")
+                    im_magnit = Image.open(r"241\ПТК_ППЛС\магниты выпуск\Магнит Переславль для ВА--761.jpg ")
                     im_magnit_png = Image.open(r"241\ПТК_ППЛС\магниты присяга\761_переславль.png")
                 elif str(id_region) == '291':
                     im_magnit = Image.open(r"241\ПТК_ППЛС\магниты присяга\291_Северодвинск.jpg")
@@ -1185,35 +1211,45 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
                 wpercent = (basewidth / float(im1.size[0]))
                 hsize = int((float(im1.size[1]) * float(wpercent)))
                 im1 = im1.resize((basewidth, hsize), Image.Resampling.LANCZOS)
-
+                wpercent = (basewidth / float(mask_im1_blur.size[0]))
+                hsize = int((float(mask_im1_blur.size[1]) * float(wpercent)))
+                mask_im1_blur = mask_im1_blur.resize((basewidth, hsize), Image.Resampling.LANCZOS)
 
                 wpercent = (basewidth / float(im2.size[0]))
                 hsize = int((float(im2.size[1]) * float(wpercent)))
                 im2 = im2.resize((basewidth, hsize), Image.Resampling.LANCZOS)
+                wpercent = (basewidth / float(mask_im2_blur.size[0]))
+                hsize = int((float(mask_im2_blur.size[1]) * float(wpercent)))
+                mask_im2_blur = mask_im2_blur.resize((basewidth, hsize), Image.Resampling.LANCZOS)
 
-                im_10x15_.paste(im2, (-50, 0))
+                im_foto_flag_2kadr.paste(im2, (-50, 0),mask_im2_blur)
                 path_out_v5 = os.path.join(path_create_papka, ved + "_P", f'{pp["в печать 5"]}', f'{name_id}.jpg')
-                im_10x15_.save(path_out_v5, dpi=(300, 300), quality=95)
+                im_foto_flag_2kadr.save(path_out_v5, dpi=(300, 300), quality=95)
 
-                im_10x15_.paste(im1, (-50, 0))
+                im_foto_flag.paste(im1, (-50, 0), mask_im1_blur)
+                im_foto_flag.paste(im_ramka,mask=im_ramka)
                 path_out_v2 = os.path.join(path_create_papka, ved + "_P", f'{pp["в печать 2"]}', f'{name_id}.jpg')
-                im_10x15_.save(path_out_v2, dpi=(300, 300), quality=95)
+                im_foto_flag.save(path_out_v2, dpi=(300, 300), quality=95)
 
                 im1_10x15 = Image.open(path_out_v2)
                 # вставка 3 фотки
-                im_v_shablon.paste(im2, (-40, 1818))
-                im_v_shablon.paste(im1_10x15, (1170, 1800))
+                im_v_shablon.paste(im_foto_flag_2kadr, (0, 1818))
+                im_v_shablon.paste(im_foto_flag, (1170, 1800))
 
                 # верх горизонтальный кадр
                 basewidth = 1760
                 wpercent = (basewidth / float(im1.size[0]))
                 hsize = int((float(im1.size[1]) * float(wpercent)))
                 im1 = im1.resize((basewidth, hsize), Image.Resampling.LANCZOS)
-                # save
-                path_out = os.path.join(path_create_papka, ved + "_P", f'{pp["в печать 6"]}', f'{name_id}.jpg')
-                im1.save(path_out, dpi=(300, 300), quality=95)
+                wpercent = (basewidth / float(mask_im1_blur.size[0]))
+                hsize = int((float(mask_im1_blur.size[1]) * float(wpercent)))
+                mask_im1_blur = mask_im1_blur.resize((basewidth, hsize), Image.Resampling.LANCZOS)
 
-                im1 = im1.rotate(90, expand=True)
+                im_blue_fon.paste(im1, (-50, 20), mask_im1_blur)
+                path_out_v5 = os.path.join(path_create_papka, ved + "_P", f'{pp["в печать 6"]}', f'{name_id}.jpg')
+                im_blue_fon.save(path_out_v5, dpi=(300, 300), quality=95)
+
+                im1 = im_blue_fon.rotate(90, expand=True)
                 im_v_shablon.paste(im1, (12, 25))
 
                 im_v_shablon.paste(im_v_shablon_png, mask=im_v_shablon_png)
@@ -1225,7 +1261,8 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
                 path_out = os.path.join(path_create_papka, ved, f'{pp["в печать 12"]}', f'{name_id}.jpg')
                 im_v_shablon.save(path_out, dpi=(300, 300), quality=95)
                 im1 = im1.rotate(270, expand=True)
-                # breakpoint()
+                breakpoint()
+
                 # Магнит большой
                 basewidth = 830
                 wpercent = (basewidth / float(im1.size[0]))
@@ -1250,7 +1287,6 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
                 wpercent = (basewidth / float(im2.size[0]))
                 hsize = int((float(im2.size[1]) * float(wpercent)))
                 im2 = im2.resize((basewidth, hsize), Image.Resampling.LANCZOS)
-
 
                 im_vimpel.paste(im2, (0, 641))
                 im_vimpel.paste(vimpel_shablon, mask=vimpel_shablon)
@@ -1296,7 +1332,7 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
                 # водяной знак в печать 2
                 im_10x15_.thumbnail(maxsize, Image.Resampling.LANCZOS)
                 im_10x15_.paste(im_voda.resize(im_10x15_.size), (0, 0),
-                                       mask=im_voda.resize(im_10x15_.size))
+                                mask=im_voda.resize(im_10x15_.size))
                 path_out = os.path.join(path_create_papka, ved + "_V", f'{pp["в печать 2"]}', f'{name_id}.jpg')
                 im_10x15_.save(path_out, dpi=(60, 60))
 
@@ -1428,7 +1464,7 @@ if __name__ == '__main__':
 
     multiprocessing.freeze_support()
     Flg = 0
-    print("241___Присяга:  версия - 16.08.24")
+    print("241___Выпуск:  версия - 26.09.24")
 
     # удаление png и mask
     pyt = os.getcwd()
@@ -1441,10 +1477,10 @@ if __name__ == '__main__':
                 png_path = os.path.join(pyt, i)
                 os.remove(png_path)
 
-    pix = input('введите pix: ')
-    if pix == '':
-        pix = "2"
-    # pix = "2"
+    # pix = input('введите pix: ')
+    # if pix == '':
+    #     pix = "2"
+    pix = "2"
     d1 = datetime.datetime.now()  # 2024-06-06 14:32:20.266667
     if d1.year == 2025 and d1.month > 6:
         print("[ERROR -~ 1440] Обратитесь в тех. поддержку")
