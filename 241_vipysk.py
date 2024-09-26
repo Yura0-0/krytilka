@@ -1177,15 +1177,15 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
                 im_v_shablon_png = Image.open(r'241/ПТК_ППЛС/в печать 12 шаблон.png')
                 im_10x15_ = Image.open(r'241/ПТК_ППЛС/10x15.jpg')
                 im_ramka = Image.open('241/в печать 12/10x15 рамка.png')
-                im_big = Image.open('241/в печать 12/фон.jpg')
                 im_blue_fon = Image.open('241/ПТК_ППЛС/выпуск_синий_фондля.jpg')
                 im_foto_flag_2kadr = Image.open('241/ПТК_ППЛС/Флаг_2 кадр.jpg')
+                im_2_gorizont_kadra = Image.open('241/ПТК_ППЛС/2 горизонтальных.jpg')
+                im_2_gorizont_kadra_png = Image.open('241/ПТК_ППЛС/2 горизонтальных.png')
 
                 if name_id == '291':
                     im_foto_flag = Image.open('241/ПТК_ППЛС/Андреевский Флаг.jpg')
                 else:
                     im_foto_flag = Image.open('241/в печать 12/флаг.jpg')
-
 
                 if str(id_region) == '301':
                     im_magnit = Image.open(r"241\ПТК_ППЛС\магниты выпуск\Магнит Знаменск для ВА-301.jpg")
@@ -1222,12 +1222,12 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
                 hsize = int((float(mask_im2_blur.size[1]) * float(wpercent)))
                 mask_im2_blur = mask_im2_blur.resize((basewidth, hsize), Image.Resampling.LANCZOS)
 
-                im_foto_flag_2kadr.paste(im2, (-50, 0),mask_im2_blur)
+                im_foto_flag_2kadr.paste(im2, (-50, 0), mask_im2_blur)
                 path_out_v5 = os.path.join(path_create_papka, ved + "_P", f'{pp["в печать 5"]}', f'{name_id}.jpg')
                 im_foto_flag_2kadr.save(path_out_v5, dpi=(300, 300), quality=95)
 
                 im_foto_flag.paste(im1, (-50, 0), mask_im1_blur)
-                im_foto_flag.paste(im_ramka,mask=im_ramka)
+                im_foto_flag.paste(im_ramka, mask=im_ramka)
                 path_out_v2 = os.path.join(path_create_papka, ved + "_P", f'{pp["в печать 2"]}', f'{name_id}.jpg')
                 im_foto_flag.save(path_out_v2, dpi=(300, 300), quality=95)
 
@@ -1261,6 +1261,18 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
                 path_out = os.path.join(path_create_papka, ved, f'{pp["в печать 12"]}', f'{name_id}.jpg')
                 im_v_shablon.save(path_out, dpi=(300, 300), quality=95)
                 im1 = im1.rotate(270, expand=True)
+                # breakpoint()
+
+                # 2 (команды) горизонтальных кадра
+                path_out_ = os.path.join(path_create_papka, ved + "_P", f'{pp["в печать 15"]}', f'{name_id}.jpg')
+                im3.save(path_out_, dpi=(300, 300), quality=95)
+
+                im_2_gorizont_kadra.paste(im3, (15, 20))
+                im_2_gorizont_kadra.paste(im3, (15, 1815))
+                im_2_gorizont_kadra.paste(im_2_gorizont_kadra_png, mask=im_2_gorizont_kadra_png)
+                path_out_v15 = os.path.join(path_create_papka, ved, f'{pp["в печать 15"]}', f'{name_id}.jpg')
+                im_2_gorizont_kadra.save(path_out_v15, dpi=(300, 300), quality=95)
+
                 breakpoint()
 
                 # Магнит большой
