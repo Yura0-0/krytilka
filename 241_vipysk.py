@@ -1200,8 +1200,8 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
                     im_magnit = Image.open(r"241\ПТК_ППЛС\магниты присяга\641_Саратов.jpg")
                     im_magnit_png = Image.open(r"241\ПТК_ППЛС\магниты присяга\641_Саратов.png")
                 elif str(id_region) == '761':
-                    im_magnit = Image.open(r"241\ПТК_ППЛС\магниты выпуск\Магнит Переславль для ВА--761.jpg ")
-                    im_magnit_png = Image.open(r"241\ПТК_ППЛС\магниты присяга\761_переславль.png")
+                    im_magnit = Image.open(r"241\ПТК_ППЛС\магниты выпуск\Магнит Переславль для ВА--761.jpg")
+                    im_magnit_png = Image.open(r"241\ПТК_ППЛС\магниты выпуск\Магнит Переславль для ВА--761.png")
                 elif str(id_region) == '291':
                     im_magnit = Image.open(r"241\ПТК_ППЛС\магниты присяга\291_Северодвинск.jpg")
                     im_magnit_png = Image.open(r"241\ПТК_ППЛС\магниты присяга\291_Северодвинск.png")
@@ -1270,10 +1270,14 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
                 im_2_gorizont_kadra.paste(im3, (15, 20))
                 im_2_gorizont_kadra.paste(im3, (15, 1815))
                 im_2_gorizont_kadra.paste(im_2_gorizont_kadra_png, mask=im_2_gorizont_kadra_png)
+
+                # нумерация
+                draw = ImageDraw.Draw(im_2_gorizont_kadra)
+                font = ImageFont.truetype(r"C:\Windows\Fonts\Arial.ttf", 40)
+                draw.text((80, 3500), f"{name_id}", (255, 255, 255), font=font)
+
                 path_out_v15 = os.path.join(path_create_papka, ved, f'{pp["в печать 15"]}', f'{name_id}.jpg')
                 im_2_gorizont_kadra.save(path_out_v15, dpi=(300, 300), quality=95)
-
-                breakpoint()
 
                 # Магнит большой
                 basewidth = 830
@@ -1294,38 +1298,7 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
                 path_out = os.path.join(path_create_papka, ved + "_P", f'{pp["Магнит"]}', f'{name_id}.jpg')
                 im_magnit.save(path_out, dpi=(300, 300), quality=95)
 
-                # Вымпел
-                basewidth = 1800
-                wpercent = (basewidth / float(im2.size[0]))
-                hsize = int((float(im2.size[1]) * float(wpercent)))
-                im2 = im2.resize((basewidth, hsize), Image.Resampling.LANCZOS)
 
-                im_vimpel.paste(im2, (0, 641))
-                im_vimpel.paste(vimpel_shablon, mask=vimpel_shablon)
-
-                # # нумерация с поворотом
-                # tim = Image.new('RGBA', (190, 50), (0, 0, 0, 0))
-                # dr = ImageDraw.Draw(tim)
-                # ft = ImageFont.truetype(r"C:\Windows\Fonts\Arial.ttf", 37)
-                # dr.text((0, 0), f"{name_id}", font=ft, fill=(255, 255, 255))
-                #
-                # tim = tim.rotate(90, expand=1)
-                # im_vimpel.paste(tim, (1670, 1700), tim)
-
-                # нумерация
-                draw = ImageDraw.Draw(im_vimpel)
-                font = ImageFont.truetype(r"C:\Windows\Fonts\Arial.ttf", 37)
-                if str(id_region) == '761':
-                    draw.text((1450, 650), f"{name_id}", (0, 0, 0), font=font)
-                else:
-                    draw.text((1450, 650), f"{name_id}", (255, 255, 255), font=font)
-
-                # save
-                path_out = os.path.join(path_create_papka, ved, f'{pp["Вымпел"]}', f'{name_id}.jpg')
-                im_vimpel.save(path_out, dpi=(300, 300), quality=95)
-                path_out = os.path.join(path_create_papka, ved + "_P", f'{pp["Вымпел"]}', f'{name_id}.jpg')
-                # im_vimpel = im_vimpel.convert('CMYK')
-                im_vimpel.save(path_out, dpi=(300, 300), quality=95)
 
                 # размер im3 konvert
                 maxsize = (629, 629)
@@ -1360,30 +1333,15 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
                 path_out = os.path.join(path_create_papka, ved + "_V", f'{pp["Магнит"]}', f'{name_id}.jpg')
                 im_magnit.save(path_out, dpi=(60, 60))
 
-                # водяной вымпел
-                vimpel_V_png = Image.open("241/ПТК_ППЛС/вымпел_V.png")
-                vimpel_V_jpg = Image.open("241/ПТК_ППЛС/вымпел_V.jpg")
 
-                maxsize = (700, 700)
-                im_vimpel.thumbnail(maxsize, Image.Resampling.LANCZOS)
-                im_vimpel.paste(im_voda.resize(im_vimpel.size), (0, 0), mask=im_voda.resize(im_vimpel.size))
-                vimpel_V_jpg.paste(im_vimpel, (64, 15))
-                vimpel_V_jpg.paste(vimpel_V_png, mask=vimpel_V_png)
 
-                path_out = os.path.join(path_create_papka, ved + "_V", f'{pp["Вымпел"]}', f'{name_id}.jpg')
-                vimpel_V_jpg.save(path_out, dpi=(60, 60))
-
-                vimpel_V_png.close()
-                vimpel_V_jpg.close()
                 im1.close()
                 im2.close()
                 im_10x15_.close()
                 im_v_shablon_png.close()
                 im_v_shablon.close()
                 im_voda.close()
-                im_vimpel.close()
                 im_magnit.close()
-                vimpel_shablon.close()
                 im1_10x15.close()
 
 
