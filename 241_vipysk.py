@@ -1175,36 +1175,36 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
 
                 im_v_shablon = Image.open(r'241/ПТК_ППЛС/в печать 12 шаблон.jpg')
                 im_v_shablon_png = Image.open(r'241/ПТК_ППЛС/в печать 12 шаблон.png')
-                im_10x15_ = Image.open(r'241/ПТК_ППЛС/10x15.jpg')
+                # im_10x15_ = Image.open(r'241/ПТК_ППЛС/10x15.jpg')
                 im_ramka = Image.open('241/в печать 12/10x15 рамка.png')
                 im_blue_fon = Image.open('241/ПТК_ППЛС/выпуск_синий_фондля.jpg')
                 im_foto_flag_2kadr = Image.open('241/ПТК_ППЛС/Флаг_2 кадр.jpg')
                 im_2_gorizont_kadra = Image.open('241/ПТК_ППЛС/2 горизонтальных.jpg')
                 im_2_gorizont_kadra_png = Image.open('241/ПТК_ППЛС/2 горизонтальных.png')
 
-                if name_id == '291':
+                if id_region == '291':
                     im_foto_flag = Image.open('241/ПТК_ППЛС/Андреевский Флаг.jpg')
                 else:
                     im_foto_flag = Image.open('241/в печать 12/флаг.jpg')
 
                 if str(id_region) == '301':
                     im_magnit = Image.open(r"241\ПТК_ППЛС\магниты выпуск\Магнит Знаменск для ВА-301.jpg")
-                    im_magnit_png = Image.open(r"241\ПТК_ППЛС\магниты присяга\301_знаменск.png")
+                    # im_magnit_png = Image.open(r"241\ПТК_ППЛС\магниты присяга\301_знаменск.png")
                 elif str(id_region) == '504':
-                    im_magnit = Image.open(r"241\ПТК_ППЛС\магниты присяга\504_Княжево.jpg")
-                    im_magnit_png = Image.open(r"241\ПТК_ППЛС\магниты присяга\504_Княжево.png")
+                    im_magnit = Image.open(r"241\ПТК_ППЛС\магниты выпуск\Магнит Княжево для ВА_504.jpg")
+                    # im_magnit_png = Image.open(r"241\ПТК_ППЛС\магниты присяга\504_Княжево.png")
                 elif str(id_region) == '601':
-                    im_magnit = Image.open(r"241\ПТК_ППЛС\магниты присяга\601_остров.jpg")
-                    im_magnit_png = Image.open(r"241\ПТК_ППЛС\магниты присяга\601_остров.png")
+                    im_magnit = Image.open(r"241\ПТК_ППЛС\магниты выпуск\Магнит Остров для ВА_601.jpg")
+                    # im_magnit_png = Image.open(r"241\ПТК_ППЛС\магниты присяга\601_остров.png")
                 elif str(id_region) == '641':
-                    im_magnit = Image.open(r"241\ПТК_ППЛС\магниты присяга\641_Саратов.jpg")
-                    im_magnit_png = Image.open(r"241\ПТК_ППЛС\магниты присяга\641_Саратов.png")
+                    im_magnit = Image.open(r"241\ПТК_ППЛС\магниты выпуск\Магнит Саратов для ВА--641.jpg")
+                    # im_magnit_png = Image.open(r"241\ПТК_ППЛС\магниты присяга\641_Саратов.png")
                 elif str(id_region) == '761':
                     im_magnit = Image.open(r"241\ПТК_ППЛС\магниты выпуск\Магнит Переславль для ВА--761.jpg")
                     im_magnit_png = Image.open(r"241\ПТК_ППЛС\магниты выпуск\Магнит Переславль для ВА--761.png")
                 elif str(id_region) == '291':
-                    im_magnit = Image.open(r"241\ПТК_ППЛС\магниты присяга\291_Северодвинск.jpg")
-                    im_magnit_png = Image.open(r"241\ПТК_ППЛС\магниты присяга\291_Северодвинск.png")
+                    im_magnit = Image.open(r"241\ПТК_ППЛС\магниты выпуск\Магнит Северодвинск для ВА-291.jpg")
+                    # im_magnit_png = Image.open(r"241\ПТК_ППЛС\магниты присяга\291_Северодвинск.png")
 
                 # размер im1 and im2
                 basewidth = 1330
@@ -1245,7 +1245,7 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
                 hsize = int((float(mask_im1_blur.size[1]) * float(wpercent)))
                 mask_im1_blur = mask_im1_blur.resize((basewidth, hsize), Image.Resampling.LANCZOS)
 
-                im_blue_fon.paste(im1, (-50, 20), mask_im1_blur)
+                im_blue_fon.paste(im1, (-0, 20), mask_im1_blur)
                 path_out_v5 = os.path.join(path_create_papka, ved + "_P", f'{pp["в печать 6"]}', f'{name_id}.jpg')
                 im_blue_fon.save(path_out_v5, dpi=(300, 300), quality=95)
 
@@ -1280,25 +1280,27 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
                 im_2_gorizont_kadra.save(path_out_v15, dpi=(300, 300), quality=95)
 
                 # Магнит большой
-                basewidth = 830
-                wpercent = (basewidth / float(im1.size[0]))
-                hsize = int((float(im1.size[1]) * float(wpercent)))
-                im1 = im1.resize((basewidth, hsize), Image.Resampling.LANCZOS)
+                basewidth = 890
+                wpercent = (basewidth / float(im2.size[0]))
+                hsize = int((float(im2.size[1]) * float(wpercent)))
+                im2 = im2.resize((basewidth, hsize), Image.Resampling.LANCZOS)
+                wpercent = (basewidth / float(mask_im2_blur.size[0]))
+                hsize = int((float(mask_im2_blur.size[1]) * float(wpercent)))
+                mask_im2_blur = mask_im2_blur.resize((basewidth, hsize), Image.Resampling.LANCZOS)
 
-                im_magnit.paste(im1, (910, 40))
-                im_magnit.paste(im_magnit_png, mask=im_magnit_png)
+                im_magnit.paste(im2, (-50, 40),mask_im2_blur)
+                if id_region == '761':
+                    im_magnit.paste(im_magnit_png, mask=im_magnit_png)
 
                 # нумерация
                 draw = ImageDraw.Draw(im_magnit)
                 font = ImageFont.truetype(r"C:\Windows\Fonts\Arial.ttf", 27)
-                draw.text((1570, 26), f"{name_id}", (0, 0, 0), font=font)
+                draw.text((40, 26), f"{name_id}", (255, 255, 255), font=font)
                 # save
                 path_out = os.path.join(path_create_papka, ved, f'{pp["Магнит"]}', f'{name_id}.jpg')
                 im_magnit.save(path_out, dpi=(300, 300), quality=95)
                 path_out = os.path.join(path_create_papka, ved + "_P", f'{pp["Магнит"]}', f'{name_id}.jpg')
                 im_magnit.save(path_out, dpi=(300, 300), quality=95)
-
-
 
                 # размер im3 konvert
                 maxsize = (629, 629)
@@ -1308,24 +1310,31 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
 
                 im_voda = Image.open(r'241/в печать 11/водяной .png')
 
-                # водяной знак в печать 5
-                im2.thumbnail(maxsize, Image.Resampling.LANCZOS)
-                im2.paste(im_voda.resize(im2.size), (0, 0), mask=im_voda.resize(im1.size))
+                # водяной знак
+                # в печать 5
+                im_blue_fon.thumbnail(maxsize, Image.Resampling.LANCZOS)
+                im_blue_fon.paste(im_voda.resize(im_blue_fon.size), (0, 0), mask=im_voda.resize(im_blue_fon.size))
                 path_out = os.path.join(path_create_papka, ved + "_V", f'{pp["в печать 5"]}', f'{name_id}.jpg')
-                im2.save(path_out, dpi=(60, 60))
+                im_blue_fon.save(path_out, dpi=(60, 60))
 
                 # водяной знак в печать 2
-                im_10x15_.thumbnail(maxsize, Image.Resampling.LANCZOS)
-                im_10x15_.paste(im_voda.resize(im_10x15_.size), (0, 0),
-                                mask=im_voda.resize(im_10x15_.size))
+                im_foto_flag.thumbnail(maxsize, Image.Resampling.LANCZOS)
+                im_foto_flag.paste(im_voda.resize(im_foto_flag.size), (0, 0),
+                                mask=im_voda.resize(im_foto_flag.size))
                 path_out = os.path.join(path_create_papka, ved + "_V", f'{pp["в печать 2"]}', f'{name_id}.jpg')
-                im_10x15_.save(path_out, dpi=(60, 60))
+                im_foto_flag.save(path_out, dpi=(60, 60))
 
                 # водяной знак в печать 1
-                im_10x15_.thumbnail(maxsize, Image.Resampling.LANCZOS)
-                im_10x15_.paste(im_voda.resize(im_10x15_.size), (0, 0), mask=im_voda.resize(im_10x15_.size))
+                im_foto_flag_2kadr.thumbnail(maxsize, Image.Resampling.LANCZOS)
+                im_foto_flag_2kadr.paste(im_voda.resize(im_foto_flag_2kadr.size), (0, 0), mask=im_voda.resize(im_foto_flag_2kadr.size))
                 path_out = os.path.join(path_create_papka, ved + "_V", f'{pp["в печать 1"]}', f'{name_id}.jpg')
-                im_10x15_.save(path_out, dpi=(60, 60))
+                im_foto_flag_2kadr.save(path_out, dpi=(60, 60))
+
+                # водяной знак в печать 15
+                im3.thumbnail(maxsize, Image.Resampling.LANCZOS)
+                im3.paste(im_voda.resize(im3.size), (0, 0), mask=im_voda.resize(im3.size))
+                path_out = os.path.join(path_create_papka, ved + "_V", f'{pp["в печать 15"]}', f'{name_id}.jpg')
+                im3.save(path_out, dpi=(60, 60))
 
                 # водяной магнит
                 im_magnit.thumbnail(maxsize, Image.Resampling.LANCZOS)
@@ -1334,16 +1343,25 @@ def ptk_ppls(pix):  # постер 4 кал 12 конверт 1 2 5 календ
                 im_magnit.save(path_out, dpi=(60, 60))
 
 
-
                 im1.close()
                 im2.close()
-                im_10x15_.close()
+                im3.close()
+                mask_im1_blur.close()
+                mask_im2_blur.close()
+                im_foto_flag_2kadr.close()
+                im_blue_fon.close()
                 im_v_shablon_png.close()
                 im_v_shablon.close()
                 im_voda.close()
                 im_magnit.close()
                 im1_10x15.close()
+                im_ramka.close()
+                im_2_gorizont_kadra.close()
+                im_2_gorizont_kadra_png.close()
 
+                # удаление масок
+                os.remove(f'mask-pix_{name_id}_1_v2.jpg')
+                os.remove(f'mask-pix_{name_id}_2_v2.jpg')
 
         else:
             continue
@@ -1434,7 +1452,7 @@ if __name__ == '__main__':
 
     multiprocessing.freeze_support()
     Flg = 0
-    print("241___Выпуск:  версия - 26.09.24")
+    print("241___Выпуск:  версия - 27.09.24")
 
     # удаление png и mask
     pyt = os.getcwd()
@@ -1447,10 +1465,10 @@ if __name__ == '__main__':
                 png_path = os.path.join(pyt, i)
                 os.remove(png_path)
 
-    # pix = input('введите pix: ')
-    # if pix == '':
-    #     pix = "2"
-    pix = "2"
+    pix = input('введите pix: ')
+    if pix == '':
+        pix = "2"
+    # pix = "2"
     d1 = datetime.datetime.now()  # 2024-06-06 14:32:20.266667
     if d1.year == 2025 and d1.month > 6:
         print("[ERROR -~ 1440] Обратитесь в тех. поддержку")
@@ -1601,4 +1619,4 @@ if __name__ == '__main__':
             shutil.rmtree(vv)
 
         print('** КОПИРНУЛ и УДАЛИЛ **')
-        print('[INFO] Теперь можно и рюмочку оформить...')
+        print('[INFO] и никакой рюмки!!')
