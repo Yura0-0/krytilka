@@ -28,6 +28,7 @@ vedomosti = os.listdir(path_krytilka)
 
 mas_brak_fon = []
 
+
 def key_exit():
     while True:
         if keyboard.is_pressed('q'):
@@ -1687,7 +1688,6 @@ if __name__ == '__main__':
                     shutil.copytree(i_p, path_out, dirs_exist_ok=True)
                 except:
                     print(f"[*ERROR*] не скопировал {i_p} в {path_out}")
-
 
         for i_p in input_papki:
             if "крутить" in i_p:
