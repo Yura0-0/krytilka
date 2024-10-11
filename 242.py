@@ -445,7 +445,7 @@ def v_pechat_11(pix):  # в печать 11 2 3 4 7 9 konvert
                     im_voda = Image.open(r'242/в печать 11/водяной .png')
                     maxsize = (355, 355)
                     im_foto_sh_ykaz.thumbnail(maxsize, Image.Resampling.LANCZOS)
-                    im_foto_sh_ykaz.paste(im_voda, mask=im_voda)
+                    im_foto_sh_ykaz.paste(im_voda.resize(im_foto_sh_ykaz.size), mask=im_voda.resize(im_foto_sh_ykaz.size))
                     path_out = os.path.join(path_create_papka, ved + "_V", f'{pp["в печать 3"]}', f'{name_id}.jpg')
                     im_foto_sh_ykaz.save(path_out, dpi=(60, 60))
                     im_voda_big = Image.open(r'242/в печать 11/водяной .png')
@@ -802,7 +802,7 @@ def v_pechat_12(pix):  # в печать 12 1 5 13 10 8
                     im_voda_big = Image.open('242/в печать 11/водяной .png')
                     maxsize = (355, 355)
                     im_big.thumbnail(maxsize, Image.Resampling.LANCZOS)
-                    im_big.paste(im_voda_big, (10, 0), mask=im_voda_big)
+                    im_big.paste(im_voda_big.resize(im_big.size), mask=im_voda_big.resize(im_big.size))
                     path_out = os.path.join(path_create_papka, ved + "_V", f'{pp["в печать 5"]}', f'{name_id}.jpg')
                     im_big.save(path_out, dpi=(60, 60))
                     im_voda_big.close()
@@ -810,7 +810,7 @@ def v_pechat_12(pix):  # в печать 12 1 5 13 10 8
                     im_voda_big = Image.open('242/в печать 11/водяной .png')
                     maxsize = (355, 355)
                     im_poster_big_sh.thumbnail(maxsize, Image.Resampling.LANCZOS)
-                    im_poster_big_sh.paste(im_voda_big, mask=im_voda_big)
+                    im_poster_big_sh.paste(im_voda_big.resize(im_poster_big_sh.size), mask=im_voda_big.resize(im_poster_big_sh.size))
                     path_out = os.path.join(path_create_papka, ved + "_V", f'{pp["в печать 8"]}', f'{name_id}.jpg')
                     im_poster_big_sh.save(path_out, dpi=(60, 60))
                     # водяной знак календарь постер
@@ -1432,7 +1432,7 @@ def papka_Z():
 
                 path_out = os.path.join(path_create_papka, vedd, f'{id}.jpg')
                 shablon_Z.save(path_out, dpi=(300, 300), quality=95)
-                breakpoint()
+
                 shablon_Z.close()
                 v_pech.close()
                 v_pech_1.close()
