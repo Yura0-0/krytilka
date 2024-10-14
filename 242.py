@@ -251,7 +251,8 @@ def v_pechat(pix):  # 0 6
                     # водяной знак в печать 6
                     im_voda_big = Image.open(r'242/в печать 11/водяной .png')
                     im_v_pechat_6.thumbnail(maxsize, Image.Resampling.LANCZOS)
-                    im_v_pechat_6.paste(im_voda_big, (5, 0), mask=im_voda_big)
+                    im_v_pechat_6.paste(im_voda_big.resize(im_v_pechat_6.size), mask=im_voda_big.resize(im_v_pechat_6.size))
+                    # im_v_pechat_6.paste(im_voda_big, (5, 0), mask=im_voda_big)
                     path_out = os.path.join(path_create_papka, ved + "_V", f'{pp["в печать 6"]}', f'{name_id}.jpg')
                     im_v_pechat_6.save(path_out, dpi=(60, 60))
 
@@ -816,7 +817,7 @@ def v_pechat_12(pix):  # в печать 12 1 5 13 10 8
                     # водяной знак календарь постер
                     maxsize = (355, 355)
                     im_kal_poster_sh.thumbnail(maxsize, Image.Resampling.LANCZOS)
-                    im_kal_poster_sh.paste(im_voda, mask=im_voda)
+                    im_kal_poster_sh.paste(im_voda.resize(im_kal_poster_sh.size), mask=im_voda.resize(im_kal_poster_sh.size))
                     path_out = os.path.join(path_create_papka, ved + "_V", f'{pp["в печать 10"]}', f'{name_id}.jpg')
                     im_kal_poster_sh.save(path_out, dpi=(60, 60))
 
